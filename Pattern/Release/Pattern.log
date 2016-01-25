@@ -1,0 +1,35 @@
+﻿Build started 1/23/2016 1:09:11 PM.
+     1>Project "C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Pattern\Pattern.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release\Pattern.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Controller.cpp
+         Controller.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Release\Pattern.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Release\Pattern.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Release\Pattern.lib" /MACHINE:X86 /SAFESEH Release\Pattern.res
+         Release\Bitmap.obj
+         Release\Canvas.obj
+         Release\Char.obj
+         Release\Controller.obj
+         Release\Doc.obj
+         Release\DocDrawer.obj
+         Release\Document.obj
+         Release\DocumentDrawerFactory.obj
+         Release\GfxMgr.obj
+         Release\Glyph.obj
+         Release\Init.obj
+         Release\Lexer.obj
+         Release\Page.obj
+         Release\PageDrawer.obj
+         Release\PageView.obj
+         Release\Parser.obj
+         Release\Pattern.obj
+         Release\stdafx.obj
+         Release\TxtDrawer.obj
+         Release\TxtLexer.obj
+         Generating code
+         Finished generating code
+         Pattern.vcxproj -> C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Release\Pattern.exe
+     1>Done Building Project "C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Pattern\Pattern.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.68
