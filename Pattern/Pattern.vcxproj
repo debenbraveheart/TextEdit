@@ -47,7 +47,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -88,9 +88,15 @@
     <ClInclude Include="DocDrawer.h" />
     <ClInclude Include="Document.h" />
     <ClInclude Include="DocumentDrawerFactory.h" />
+    <ClInclude Include="FileInterface.h" />
+    <ClInclude Include="FileSystemInterface.h" />
     <ClInclude Include="GfxMgr.h" />
     <ClInclude Include="Glyph.h" />
+    <ClInclude Include="KeyboardKeys.h" />
     <ClInclude Include="Lexer.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="LineBuffer.h" />
+    <ClInclude Include="LocalFileSystem.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="PageConstants.h" />
     <ClInclude Include="PageDrawer.h" />
@@ -114,10 +120,15 @@
     <ClCompile Include="DocDrawer.cpp" />
     <ClCompile Include="Document.cpp" />
     <ClCompile Include="DocumentDrawerFactory.cpp" />
+    <ClCompile Include="FileInterface.cpp" />
+    <ClCompile Include="FileSystemInterface.cpp" />
     <ClCompile Include="GfxMgr.cpp" />
     <ClCompile Include="Glyph.cpp" />
     <ClCompile Include="Init.cpp" />
     <ClCompile Include="Lexer.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="LineBuffer.cpp" />
+    <ClCompile Include="LocalFileSystem.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="PageDrawer.cpp" />
     <ClCompile Include="PageView.cpp" />

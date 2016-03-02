@@ -59,9 +59,9 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_PATTERN));
 	
 	// Main message loop:
-	while (1)
+	while (GetMessage(&msg, NULL, 0, 0) > 0)
 	{
-		bool gotMessage = PeekMessage(&msg, NULL, 0, 0, PM_REMOVE);
+		/*bool gotMessage = PeekMessage(&msg, NULL, 0, 0, PM_REMOVE);
 		if (gotMessage)
 		{
 			if (msg.message != WM_QUIT)
@@ -78,7 +78,14 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			//RENDER
-		}
+			//gController->Draw();
+		}*/
+			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		
 	}
 	
 	return (int) msg.wParam;
@@ -156,14 +163,20 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY	- post a quit message and return
 //
 //
+#pragma comment(lib, "user32.lib")
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	int wmId, wmEvent;
 	PAINTSTRUCT ps;
-	HDC hdc;
+	static HDC hdc;
 
 	switch (message)
 	{
+	case WM_CREATE:
+	{
+		break;
+	}
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
@@ -220,6 +233,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		DeleteDC(hdcBmp);
 		*/
+		//
 		EndPaint(hWnd, &ps);
 		break;
 	}
@@ -229,7 +243,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		APPWIDTH = LOWORD(lParam);
 
 		gController->OnResize(APPWIDTH, APPHEIGHT);
+		gController->Draw();
+		break;
+	}
 
+	case WM_KEYUP:
+	{
+		//gController->OnKeyUp(wParam);
+		//gController->Draw();
+		break;
+	}
+	case WM_KEYDOWN:
+	{
+		gController->OnKeyDown(wParam);
+		gController->Draw();
+		break;
+	}
+	case WM_CHAR:
+	{
+		gController->OnCharKeyDown(wParam);
+		gController->Draw();
 		break;
 	}
 	case WM_DESTROY:

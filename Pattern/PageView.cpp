@@ -26,6 +26,15 @@ void PageView::Draw()
 	mDocDrawerPtr->Draw();
 }
 
+void PageView::OnKeyDown(Key key)
+{
+	mDocDrawerPtr->OnKeyDown(key);
+}
+
+void PageView::OnCharKeyDown(unsigned int key)
+{
+	mDocDrawerPtr->OnCharKeyDown(key);
+}
 void PageView::SetBounds(Rect& rect)
 {
 	mBoundingRect = { rect };
@@ -35,6 +44,8 @@ void PageView::SetBounds(Rect& rect)
 	sprintf_s(buf, "\nPageView::SetBounds left:%d  top:%d  right:%d  bottom:%d\n", mBoundingRect.left, mBoundingRect.top, mBoundingRect.right, mBoundingRect.bottom);
 	DEBUGOUT(buf);
 #endif
+	if (mDocDrawerPtr)
+		mDocDrawerPtr->OnResize(rect);
 }
 
 bool PageView::Intersects(const Point&)

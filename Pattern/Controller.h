@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 
+#include "stdafx.h"
 #include "Debug.h"
 
 #include "PageView.h"
@@ -36,5 +37,12 @@ public:
 	void OpenNewFile(string file);
 	
 	void SetHwnd(HWND h){ mHwnd = h; }
+
+	void OnKeyDown(unsigned int);
+	void OnCharKeyDown(unsigned int);
+
+	void Draw();
+
+	Key GetKeyCode(unsigned int key);
 };
 

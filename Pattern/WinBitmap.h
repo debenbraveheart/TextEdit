@@ -23,6 +23,7 @@ public:
 	WinBitmap(HWND hwnd, int w, int h);
 	~WinBitmap();
 
+	HDC GetHDC();
 	/*
 	what a bitmap does????
 
@@ -35,10 +36,16 @@ public:
 	void OnResize(int w, int h);
 
 	void DrawText(char *string, int strLen, Rect rect);
+	int GetWidthOfTheString(char *string, int count);
+
 	void DrawChar(char c, Rect rect);
+	void ClearRect(Rect rect);
 
 	void Blit(int startX, int startY, int width, int height);
 
+	void CreateCaret(int width, int height);
+	void ReleaseCraet();
+	void ShowCaret(int x, int y);
 
 	void CreateBMPFile(LPTSTR pszFile, PBITMAPINFO pbi);
 	PBITMAPINFO CreateBitmapInfoStruct(HBITMAP hBmp);

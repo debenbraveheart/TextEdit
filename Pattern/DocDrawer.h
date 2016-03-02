@@ -15,5 +15,8 @@ public:
 	virtual void OnResize(Rect r) = 0;
 
 	virtual void SetBoundingRect(Rect r) = 0;
+
+	virtual void OnKeyDown(Key key) = 0;
+	virtual void OnCharKeyDown(unsigned int key) = 0;
 };
 

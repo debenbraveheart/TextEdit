@@ -32,6 +32,10 @@ WinBitmap::~WinBitmap()
 	DeleteDC(mHdcBitmap);
 }
 
+HDC WinBitmap::GetHDC()
+{
+	return mHdcBitmap;
+}
 void WinBitmap::OnResize(int w, int h)
 {
 	if (mWidth == w && mHeight == h)
@@ -73,21 +77,95 @@ void WinBitmap::DrawChar(char c, Rect rect)
 	//SelectObject(mHdcBitmap, pen);
 
 	//TextOutA(mHdcBitmap, buf, 2, &r, DT_CENTER, NULL);
-	 
+	
+	//intercharspacing
+	//SetTextCharacterExtra(mHdcBitmap, 6);
+	//SetBkMode(mHdcBitmap, TRANSPARENT);
+	//setBackground color
+	SetBkColor(mHdcBitmap, RGB(230, 0, 0));
+	//SetTextColor(mHdcBitmap, RGB(230, 0, 0));
+
 	DrawTextA(mHdcBitmap, buf, 2, &r, DT_SINGLELINE | DT_NOCLIP);
 	
 	//BitBlt(GetDC(mHwnd), 0, 0, 1000, 500, mHdcBitmap, 0, 0, SRCCOPY);
 
 	SelectObject(mHdcBitmap, mBitmapOld);
 
-
+	char buf1[200];
+	sprintf_s(buf1, "\n%d\n", GetDeviceCaps(mHdcBitmap, LOGPIXELSY));
+	OutputDebugStringA(buf1);
 
 }
-void WinBitmap::DrawText(char *string, int strLen, Rect rect)
+
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib") 
+
+
+void WinBitmap::DrawText(char *string, int strlen, Rect rect)
 {
+	RECT r;
+	r.bottom = rect.bottom;
+	r.top = rect.top;
+	r.left = rect.left;
+	r.right = rect.right;
+
+	OutputDebugStringA(string);
+
+	mBitmapOld = static_cast<HBITMAP> (SelectObject(mHdcBitmap, mBitmap));
+
+	//HBRUSH brush = CreateSolidBrush(RGB(200, 35.5, 157));
+	//SelectObject(mHdcBitmap, brush);
+
+	//HPEN pen = CreatePen(1, 3, RGB(100, 100, 100));
+	//SelectObject(mHdcBitmap, pen);
+
+	//TextOutA(mHdcBitmap, buf, 2, &r, DT_CENTER, NULL);
+
+	//intercharspacing
+	//SetTextCharacterExtra(mHdcBitmap, 6);
+	//SetBkMode(mHdcBitmap, TRANSPARENT);
+	//setBackground color
+	//SetBkColor(mHdcBitmap, RGB(230, 0, 0));
+	SetTextColor(mHdcBitmap, RGB(230, 0, 0));
+
+	/***************************************************
+	**** can we use direct write here  
+	*/
+	DrawTextA(mHdcBitmap, string, strlen, &r, DT_SINGLELINE | DT_NOCLIP);
+	
+	/***************************/
+	//BitBlt(GetDC(mHwnd), 0, 0, 1000, 500, mHdcBitmap, 0, 0, SRCCOPY);
+
+	SelectObject(mHdcBitmap, mBitmapOld);
+
 
 }
 
+int WinBitmap::GetWidthOfTheString(char *string, int count)
+{
+	SIZE a;
+	GetTextExtentPoint32A(mHdcBitmap, string, count, &a);
+
+	return a.cx;
+}
+void WinBitmap::ClearRect(Rect rect)
+{
+	RECT r;
+	r.left = rect.left;
+	r.right = rect.right;
+	r.top = rect.top;
+	r.bottom = rect.bottom;
+
+	mBitmapOld = static_cast<HBITMAP> (SelectObject(mHdcBitmap, mBitmap));
+
+	HBRUSH hbr = CreateSolidBrush(RGB(255, 255, 255));
+	//SelectObject(mHdcBitmap, hbr);
+	//HBRUSH brush = CreateSolidBrush(RGB(200, 35.5, 157));
+	//SelectObject(mHdcBitmap, brush);
+	//Rectangle(mHdcBitmap, 10, 10, 500, 500);
+	FillRect(mHdcBitmap, &r, hbr);
+	SelectObject(mHdcBitmap, mBitmapOld);
+}
 void WinBitmap::Blit(int startX, int startY, int width, int height)
 {
 	//PBITMAPINFO pbi = CreateBitmapInfoStruct(mBitmap);
@@ -163,6 +241,22 @@ PBITMAPINFO WinBitmap::CreateBitmapInfoStruct(HBITMAP hBmp)
 	// device colors are important.  
 	pbmi->bmiHeader.biClrImportant = 0;
 	return pbmi;
+}
+
+void WinBitmap::CreateCaret(int width, int height)
+{
+	::CreateCaret(mHwnd, (HBITMAP)NULL, width, height);
+	::SetCaretPos(100, 100);
+	::ShowCaret(mHwnd);
+}
+void WinBitmap::ReleaseCraet()
+{
+	DestroyCaret();
+}
+void WinBitmap::ShowCaret(int x, int y)
+{
+	::SetCaretPos(x, y);
+	::ShowCaret(mHwnd);
 }
 
 void WinBitmap::CreateBMPFile(LPTSTR pszFile, PBITMAPINFO pbi)

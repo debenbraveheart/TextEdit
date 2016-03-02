@@ -1,9 +1,14 @@
-﻿Build started 1/25/2016 11:58:26 AM.
+﻿Build started 3/2/2016 1:06:08 AM.
      1>Project "C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Pattern\Pattern.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Pattern.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TxtDrawer.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TxtDrawer.cpp
          TxtDrawer.cpp
-     1>c:\users\dsahu\documents\visual studio 2013\projects\pattern\pattern\txtdrawer.cpp(74): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\dsahu\documents\visual studio 2013\projects\pattern\pattern\line.h(78): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\dsahu\documents\visual studio 2013\projects\pattern\pattern\txtdrawer.cpp(417): warning C4101: 'cf' : unreferenced local variable
+     1>c:\users\dsahu\documents\visual studio 2013\projects\pattern\pattern\txtdrawer.cpp(419): warning C4101: 'hfont' : unreferenced local variable
+     1>c:\users\dsahu\documents\visual studio 2013\projects\pattern\pattern\txtdrawer.cpp(418): warning C4101: 'lf' : unreferenced local variable
+     1>c:\users\dsahu\documents\visual studio 2013\projects\pattern\pattern\txtdrawer.cpp(585): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\dsahu\documents\visual studio 2013\projects\pattern\pattern\txtdrawer.cpp(590): warning C4244: 'return' : conversion from 'double' to 'int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Debug\Pattern.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Debug\Pattern.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Debug\Pattern.lib" /MACHINE:X86 Debug\Pattern.res
          Debug\Canvas.obj
@@ -13,10 +18,15 @@
          Debug\DocDrawer.obj
          Debug\Document.obj
          Debug\DocumentDrawerFactory.obj
+         Debug\FileInterface.obj
+         Debug\FileSystemInterface.obj
          Debug\GfxMgr.obj
          Debug\Glyph.obj
          Debug\Init.obj
          Debug\Lexer.obj
+         Debug\Line.obj
+         Debug\LineBuffer.obj
+         Debug\LocalFileSystem.obj
          Debug\Page.obj
          Debug\PageDrawer.obj
          Debug\PageView.obj
@@ -31,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.11
+Time Elapsed 00:00:01.25

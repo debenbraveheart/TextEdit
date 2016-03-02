@@ -26,6 +26,11 @@ public:
 	Glyph* Parent();
 
 	void SetDocument(Document*);
+
+
+	void OnKeyDown(Key key);
+	void OnCharKeyDown(unsigned int key);
+
 private:
 	Rect mBoundingRect;
 	Document* mDocumentPtr;

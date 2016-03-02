@@ -17,12 +17,20 @@
 #include <memory.h>
 #include <tchar.h>
 #include <cstdio>
-
 #include <iostream>
 #include <memory>
 #include <cassert>
+
+#include <vector>
+
+#include <Winbase.h>
+
+#include <d2d1.h>
+#include <dwrite.h>
 
 using namespace std;
 
 #include "Debug.h"
 #include "Rect.h"
+
+#include "KeyboardKeys.h"

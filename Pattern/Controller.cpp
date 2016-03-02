@@ -53,6 +53,44 @@ void Controller::OnResize(int width, int height)
 
 	}
 }
+
+void Controller::OnKeyDown(unsigned int key)
+{
+	if (mPageViews->size() > 0){
+
+		/*   smart pointer has a get method to get the raw pointer */
+		PageView* pgView = mPageViews->at(0).get();
+
+		Key k = GetKeyCode(key);
+		if (k != Key::KEY_INVALID )
+			pgView->OnKeyDown(k);
+
+	}
+}
+
+void Controller::OnCharKeyDown(unsigned int key)
+{
+	if (mPageViews->size() > 0){
+
+		/*   smart pointer has a get method to get the raw pointer */
+		PageView* pgView = mPageViews->at(0).get();
+
+		pgView->OnCharKeyDown(key);
+
+	}
+}
+void Controller::Draw()
+{
+	if (mPageViews->size() > 0){
+
+		/*   smart pointer has a get method to get the raw pointer */
+		PageView* pgView = mPageViews->at(0).get();
+
+		pgView->Draw();
+
+	}
+}
+
 void Controller::OpenNewFile(string file)
 {
 	DEBUGOUT(file.c_str());
@@ -76,4 +114,27 @@ void Controller::OpenNewFile(string file)
 	pgViewRaw->Draw();
 	
 
+}
+
+Key Controller::GetKeyCode(unsigned int key)
+{
+	switch (key)
+	{
+		case VK_DOWN:
+			return Key::KEY_DOWN;
+		case VK_UP:
+			return Key::KEY_UP;
+		case VK_RIGHT:
+			return Key::KEY_RIGHT;
+		case VK_LEFT:
+			return Key::KEY_LEFT;
+		case VK_RETURN:
+			return Key::KEY_RETURN;
+		case VK_END:
+			return Key::KEY_END;
+		case VK_HOME:
+			return Key::KEY_HOME;
+		//TODO all other keys
+	}
+	return Key::KEY_INVALID;
 }
