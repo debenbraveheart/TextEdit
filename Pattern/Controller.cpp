@@ -118,6 +118,11 @@ void Controller::OpenNewFile(string file)
 
 Key Controller::GetKeyCode(unsigned int key)
 {
+	short int ctrl = GetAsyncKeyState(VK_CONTROL);
+
+	//short int lShift = GetAsyncKeyState(VK_LSHIFT);
+	//short int rShift = GetAsyncKeyState(VK_RSHIFT);
+
 	switch (key)
 	{
 		case VK_DOWN:
@@ -125,6 +130,8 @@ Key Controller::GetKeyCode(unsigned int key)
 		case VK_UP:
 			return Key::KEY_UP;
 		case VK_RIGHT:
+			if (ctrl)
+				return Key::KEY_CTRLWITHRIGHT;
 			return Key::KEY_RIGHT;
 		case VK_LEFT:
 			return Key::KEY_LEFT;

@@ -1,4 +1,4 @@
-﻿Build started 3/1/2016 11:44:19 PM.
+﻿Build started 3/2/2016 10:28:34 PM.
      1>Project "C:\Users\dsahu\Documents\Visual Studio 2013\Projects\Pattern\Test\Test.vcxproj" on node 3 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Pattern\Line.cpp ..\Pattern\LineBuffer.cpp TestLine.cpp
@@ -26,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.00
+Time Elapsed 00:00:03.86

@@ -142,7 +142,8 @@ void TxtDrawer::OnResize(Rect r)
 	mCaretLine = oldCurrentLine % mTotalVisibleLines;
 
 	// it dos not work so try to keep the lines around the mCaretLine 
-	ChangeCaretToNewLine(mCaretLine);
+	//ChangeCaretToNewLine(mCaretLine); wrong
+	UpdateCaret();
 }
 
 void TxtDrawer::OnKeyDown(Key key)
@@ -255,9 +256,24 @@ void TxtDrawer::OnKeyDown(Key key)
 			ChangeCaretToNewOffset(mCurrentOffset + mCaretOffset);
 			break;
 		}
+		case KEY_HOME:
+		{
+			
+			mCurrentOffset = 0;
+			mCaretOffset = 0;
+
+			ChangeCaretToNewOffset(mCurrentOffset + mCaretOffset);
+			break;
+		}
 		case KEY_RETURN:
 		{
 			AddNewLine(mCurrentStart + mCaretLine);
+			break;
+		}
+		case KEY_CTRLWITHRIGHT:
+		{
+			mCaretOffset += 5;
+			UpdateCaret();
 			break;
 		}
 		default:
@@ -490,7 +506,7 @@ void TxtDrawer::Draw()
 	//mCanvas->GetBitmap()->ShowCaret(7*mCaretX, mCaretY*10);
 	mOldCurrentStart = mCurrentStart;
 
-	UpdateCaret();
+	//No Need of UpdateCaret() here;
 	/*
 	int i=1;
 	int ret = 0;
@@ -638,4 +654,5 @@ void TxtDrawer::ChangeCaretToNewOffset(int offset)
 }
 void TxtDrawer::UpdateCaret()
 {
+	mCanvas->GetBitmap()->ShowCaret((mCaretOffset) * ComputeFontWidth(), mCaretLine * ComputeFontHeight());
 }
