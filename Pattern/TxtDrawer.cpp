@@ -83,9 +83,9 @@ void TxtDrawer::SetBoundingRect(Rect r)
 	mCanvas = make_shared<Canvas>(r.left, r.top, r.right - r.left, r.bottom - r.top);
 
 	
-	int lfHeight = -MulDiv(14, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSY), 72);
-
-	HFONT font = CreateFont(lfHeight, 8, 0, 0, 700, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
+	int lfHeight = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSY), 96);
+	int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 96);
+	HFONT font = CreateFont(lfHeight, lfWidth, 0, 0, 700, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
 
 	SelectObject(mCanvas->GetBitmap()->GetHDC(), font);
 
@@ -113,8 +113,9 @@ void TxtDrawer::OnResize(Rect r)
 	mOldCurrentStart = -1;
 
 	int lfHeight = -MulDiv(14, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSY), 72);
+	int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 72);
 
-	HFONT font = CreateFont(lfHeight, 8, 0, 0, 700, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
+	HFONT font = CreateFont(lfHeight, lfWidth, 0, 0, 700, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
 
 	SelectObject(mCanvas->GetBitmap()->GetHDC(), font);
 
@@ -619,7 +620,8 @@ int TxtDrawer::ComputeFontHeight()
 
 int TxtDrawer::ComputeFontWidth()
 {
-	return 8;
+	int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 96);
+	return abs(lfWidth);
 }
 void TxtDrawer::ChangeCaretToNewLine(int lineNo)
 {

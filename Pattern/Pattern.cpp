@@ -37,6 +37,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	MSG msg;
 	HACCEL hAccelTable;
 
+	SetProcessDPIAware();
 	//Create the Controller[Singleton]
 	gController = Controller::GetController();
 
