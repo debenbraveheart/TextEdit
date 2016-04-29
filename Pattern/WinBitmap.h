@@ -49,5 +49,9 @@ public:
 
 	void CreateBMPFile(LPTSTR pszFile, PBITMAPINFO pbi);
 	PBITMAPINFO CreateBitmapInfoStruct(HBITMAP hBmp);
+
+
+	int ComputeFontHeight();
+	int ComputeFontWidth(const char *str);
 };
 

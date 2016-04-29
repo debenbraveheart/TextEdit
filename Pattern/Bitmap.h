@@ -32,5 +32,8 @@ public:
 	virtual void CreateCaret(int width, int height) = 0;
 	virtual void ReleaseCraet() = 0;
 	virtual void ShowCaret(int x, int y) = 0;
+
+	virtual int ComputeFontHeight() = 0;
+	virtual int ComputeFontWidth(const char *str) = 0;
 };
 

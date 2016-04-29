@@ -337,3 +337,22 @@ void WinBitmap::CreateBMPFile(LPTSTR pszFile, PBITMAPINFO pbi)
 	// Free memory.  
 	GlobalFree((HGLOBAL)lpBits);
 }
+
+int WinBitmap::ComputeFontHeight()
+{
+	TEXTMETRIC tm;
+	GetTextMetrics(mHdcBitmap, &tm);
+
+
+	return (tm.tmHeight + tm.tmExternalLeading);
+
+}
+int WinBitmap::ComputeFontWidth(const char *str)
+{
+	TEXTMETRIC tm;
+	GetTextMetrics(mHdcBitmap, &tm);
+
+
+	return (tm.tmHeight + tm.tmExternalLeading);
+
+}

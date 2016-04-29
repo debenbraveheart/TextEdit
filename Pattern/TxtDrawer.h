@@ -42,7 +42,7 @@ private:
 	int ComputeTotalCharsInALine(int screenWidth, int fontWidth);
 
 	int ComputeFontHeight();
-	int ComputeFontWidth();
+	int ComputeFontWidth(int offset);
 
 	void ChangeCaretToNewLine(int lineNo);
 	void ChangeCaretToNewOffset(int offset);

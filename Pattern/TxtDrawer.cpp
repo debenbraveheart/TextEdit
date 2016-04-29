@@ -82,15 +82,17 @@ void TxtDrawer::SetBoundingRect(Rect r)
 		mCanvas.reset();
 	mCanvas = make_shared<Canvas>(r.left, r.top, r.right - r.left, r.bottom - r.top);
 
-	
+	/*
+	 *   FONT is better with height what ever we want and make the width zero
+	 */
 	int lfHeight = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSY), 96);
-	int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 96);
-	HFONT font = CreateFont(lfHeight, lfWidth, 0, 0, 700, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
+	//int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 96);
+	HFONT font = ::CreateFont(-lfHeight, 0, 0, 0, 200, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
 
 	SelectObject(mCanvas->GetBitmap()->GetHDC(), font);
 
 	mTotalVisibleLines = ComputeTotalVisibleLines(r.bottom - r.top, ComputeFontHeight()) - 1;
-	mTotalVisbileChars = ComputeTotalCharsInALine(r.right - r.left, ComputeFontWidth()) - 1;
+	//mTotalVisbileChars = ComputeTotalCharsInALine(r.right - r.left, ComputeFontWidth()) - 1;
 
 	mCanvas->GetBitmap()->CreateCaret(5, ComputeFontHeight());
 
@@ -113,9 +115,9 @@ void TxtDrawer::OnResize(Rect r)
 	mOldCurrentStart = -1;
 
 	int lfHeight = -MulDiv(14, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSY), 72);
-	int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 72);
+	//int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 72);
 
-	HFONT font = CreateFont(lfHeight, lfWidth, 0, 0, 700, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
+	HFONT font = CreateFont(-lfHeight, 0, 0, 0, 700, FALSE, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, VARIABLE_PITCH, L"Consolas");
 
 	SelectObject(mCanvas->GetBitmap()->GetHDC(), font);
 
@@ -123,7 +125,7 @@ void TxtDrawer::OnResize(Rect r)
 	int oldTotalVisbileChars = mTotalVisbileChars;
 
 	mTotalVisibleLines = ComputeTotalVisibleLines(r.bottom - r.top, ComputeFontHeight()) - 1;
-	mTotalVisbileChars = ComputeTotalCharsInALine(r.right - r.left, ComputeFontWidth()) - 1;
+	//mTotalVisbileChars = ComputeTotalCharsInALine(r.right - r.left, ComputeFontWidth()) - 1;
 
 	mCanvas->GetBitmap()->ReleaseCraet();
 	mCanvas->GetBitmap()->CreateCaret(5, ComputeFontHeight());
@@ -232,10 +234,10 @@ void TxtDrawer::OnKeyDown(Key key)
 				}
 				else
 				{
-					//go up one line(if present), but till the end
+					//go up one line(if present), but to the end
 					if (mCurrentStart + mCaretLine > 0)
 					{
-						int count = mLineBuffer->GetLineCount(mCurrentStart + mCaretLine -1);
+						int count = mLineBuffer->GetLineCount(mCurrentStart + mCaretLine - 1);
 						//mCurrentOffset = max(count - mTotalVisbileChars, 0) ;
 						int mul = count / mTotalVisbileChars;
 						mCurrentOffset = mTotalVisbileChars * mul;
@@ -609,19 +611,22 @@ int TxtDrawer::ComputeTotalCharsInALine(int screenWidth, int fontWidth)
 
 int TxtDrawer::ComputeFontHeight()
 {
-	TEXTMETRIC tm;
-	GetTextMetrics(mCanvas->GetBitmap()->GetHDC(), &tm);
-
-
-	return (tm.tmHeight + tm.tmExternalLeading);
-
+	//this should move to graphics library [here WinBitmap]
+	
 	//int fWidth = tm.tmAveCharWidth;
+	return mCanvas->GetBitmap()->ComputeFontHeight();
 }
 
-int TxtDrawer::ComputeFontWidth()
+int TxtDrawer::ComputeFontWidth(int offset)
 {
-	int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 96);
-	return abs(lfWidth);
+	/**  Not using constant width font*/
+	//int lfWidth = -MulDiv(20, GetDeviceCaps(mCanvas->GetBitmap()->GetHDC(), LOGPIXELSX), 96);
+	
+	char buf[4096];
+	mLineBuffer->GetLine(mCurrentStart + mCaretLine, mCurrentStart, offset, buf);
+	return mCanvas->GetBitmap()->ComputeFontWidth(buf);
+	
+	//return abs(lfWidth);
 }
 void TxtDrawer::ChangeCaretToNewLine(int lineNo)
 {
@@ -651,10 +656,10 @@ void TxtDrawer::ChangeCaretToNewOffset(int offset)
 	}
 	else
 	{
-		mCanvas->GetBitmap()->ShowCaret(offset * ComputeFontWidth(), mCaretLine * ComputeFontHeight());
+		mCanvas->GetBitmap()->ShowCaret(ComputeFontWidth(offset), mCaretLine * ComputeFontHeight());
 	}
 }
 void TxtDrawer::UpdateCaret()
 {
-	mCanvas->GetBitmap()->ShowCaret((mCaretOffset) * ComputeFontWidth(), mCaretLine * ComputeFontHeight());
+	mCanvas->GetBitmap()->ShowCaret(ComputeFontWidth(mCaretOffset), mCaretLine * ComputeFontHeight());
 }

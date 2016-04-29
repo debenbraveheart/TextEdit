@@ -24,6 +24,7 @@ public:
 	int GetLine(int lineNo, int startOffset, int count, char *dest);
 
 	//return no of virtual char (means how many displayable char)
+	//may be returning actual char
 	int GetLineCount(int lineNo);
 
 	int InsertChar(int lineNo, char c, unsigned int index);
